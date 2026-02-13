@@ -7,6 +7,7 @@ import LifecycleDemo from './LifecycleDemo.jsx'
 import UpdatingDemo from './UpdatingDemo.jsx'
 import Componentnew from './Componentnew.jsx'
 import { Compteur, GestionListe,BoiteCouleur } from './atelier1'
+import Events from './components/Events.jsx'
 
 
 
@@ -21,7 +22,7 @@ function App() {
       
    {/* <GestionListe initialItems={['Item 1', 'Item 2']} placeholder="Ajouter un nouvel item" />*/}
     {/* <Compteur initialCount={10} step={2} /> */}
-    <BoiteCouleur initialColor="#ff0000" colorOptions={['#ff0000', '#00ff00', '#0000ff', '#ffff00']} />
+   <Events />
     </>
   )
 }
