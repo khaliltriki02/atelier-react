@@ -1,5 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
 import Event from './Event'
 import evntsJson from '../data/events.json'
 
