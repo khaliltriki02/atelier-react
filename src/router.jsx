@@ -6,6 +6,8 @@ import RootLayout from './components/RootLayout';
 const App = lazy(() => import('./App'));
 const Events = lazy(() => import('./components/Events'));
 const EventDetails = lazy(() => import('./components/EventDetails'));
+const AddEvent = lazy(() => import('./components/AddEvent'));
+const UpdateEvent = lazy(() => import('./components/UpdateEvent'));
 const NotFound = lazy(() => import('./components/NotFound'));
 
 // Configuration des routes avec createBrowserRouter
@@ -23,7 +25,15 @@ const router = createBrowserRouter([
         element: <Events />,
       },
       {
-        path: 'events/:eventName',
+        path: 'events/add',
+        element: <AddEvent />,
+      },
+      {
+        path: 'events/update/:id',
+        element: <UpdateEvent />,
+      },
+      {
+        path: 'events/:id',
         element: <EventDetails />,
       },
       {

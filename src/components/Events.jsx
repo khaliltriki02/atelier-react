@@ -1,37 +1,49 @@
-import React from 'react'
-import { Row, Col } from 'react-bootstrap'
-import { NavLink } from 'react-router-dom'
-import Event from './Event'
-import evntsJson from '../data/events.json'
+import React, { useEffect, useState } from "react";
+import { Row, Col } from "react-bootstrap";
+import Event from "./Event";
+import { getallEvents } from "../service/api";
 
 export default function Events() {
-  const event = {
-    name: 'React Workshop',
-    description: 'A workshop to learn React basics',
-    imgUrl: '/images/event1.jpg',
-    price: 49.99,
-    nbTickets: 100,
-    nbParticipants: 75,
-    like: 120,
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await getallEvents();
+        setEvents(response.data || []);
+      } catch (err) {
+        setError("Unable to load events.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  const handleDeleteSuccess = (deletedId) => {
+    setEvents((prev) => prev.filter((event) => event.id !== deletedId));
+  };
+
+  if (loading) {
+    return <p>Loading events...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (
     <div>
-        <Row>
-        {
-
-            evntsJson.map((eventItem,i)=>(
-                <Col key={i}>
-
-                <Event eventItem={eventItem}  key={i}/>
-              
-                </Col>
-            ))
-        }
-
-        </Row>
-
-      
+      <Row>
+        {events.map((eventItem) => (
+          <Col key={eventItem.id} className="mb-4">
+            <Event eventItem={eventItem} onDeleted={handleDeleteSuccess} />
+          </Col>
+        ))}
+      </Row>
     </div>
-  )
+  );
 }
